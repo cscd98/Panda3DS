@@ -44,6 +44,18 @@ else()
     set(DEFAULT_OPENGL_PROFILE OpenGL)
 endif()
 
+if(CMAKE_CXX_COMPILER MATCHES "webos" OR
+   CMAKE_CXX_COMPILER MATCHES "starfish")
+    set(WEBOS ON)
+	set(DEFAULT_OPENGL_PROFILE OpenGLES)
+    add_compile_definitions(
+        CRYPTOPP_DISABLE_ASM
+        CRYPTOPP_DISABLE_ARM_CRYPTO
+        CRYPTOPP_DISABLE_ARM_SHA
+        CRYPTOPP_DISABLE_ARM_PMULL
+    )
+endif()
+
 option(DISABLE_PANIC_DEV "Make a build with fewer and less intrusive asserts" ON)
 option(GPU_DEBUG_INFO "Enable additional GPU debugging info" OFF)
 option(ENABLE_OPENGL "Enable OpenGL rendering backend" ON)
